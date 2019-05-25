@@ -1,0 +1,2 @@
+FORMS += \
+        $$PWD/mainwindow.ui
