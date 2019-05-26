@@ -76,6 +76,52 @@
      <string>Run image matching</string>
     </property>
    </widget>
+   <widget class="QTextEdit" name="neighborhoodSizeTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>850</y>
+      <width>171</width>
+      <height>51</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="neighborhoodConsistencyThresholdTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>850</y>
+      <width>171</width>
+      <height>51</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="neigborhoodSizeLabel">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>820</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Neighborhood size</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="neighborhoodConsistencyLabel">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>820</y>
+      <width>251</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Neighborhood consistency threshold</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

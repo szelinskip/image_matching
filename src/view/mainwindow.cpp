@@ -104,5 +104,8 @@ QString MainWindow::getFilenameViaDialog()
 
 void MainWindow::on_runMatchingBtn_clicked()
 {
-    controller->runMatching();
+    std::string neighborhoodSizeStr = ui->neighborhoodSizeTextEdit->toPlainText().toStdString();
+    std::string neighborhoodConsistencyThresholdStr =
+        ui->neighborhoodConsistencyThresholdTextEdit->toPlainText().toStdString();
+    controller->runMatching(neighborhoodSizeStr, neighborhoodConsistencyThresholdStr);
 }

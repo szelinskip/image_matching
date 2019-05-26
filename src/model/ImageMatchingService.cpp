@@ -13,12 +13,13 @@ void ImageMatchingService::setController(controller::MainController* controller)
     this->controller = controller;
 }
 
-MatchingPointsPairs ImageMatchingService::matchImages()
+MatchingPointsPairs ImageMatchingService::matchImages(const uint32_t neighborhoodSize,
+                                                      const double neighborhoodConsistencyThreshold)
 {
     initImages();
 
     improc::matcher::ImageMatcher matcher(*imageA, *imageB);
-    return matcher.matchImages();
+    return matcher.matchImages(neighborhoodSize, neighborhoodConsistencyThreshold);
 }
 
 void ImageMatchingService::initImages()

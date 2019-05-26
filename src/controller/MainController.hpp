@@ -31,7 +31,7 @@ public:
     std::string getImageAPath() const;
     void setImageBPath(const std::string& imageBPath);
     std::string getImageBPath() const;
-    void runMatching();
+    void runMatching(const std::string& neighborhoodSizeStr, const std::string& neighborhoodConsistencyThresholdStr);
 
 private:
     MainWindow& mainWindow;

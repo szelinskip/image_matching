@@ -28,7 +28,7 @@ public:
     MatchingPointsPairs filterConsistentPairs(const MatchingPointsPairs& matchingPointsPairs);
 
 private:
-    std::set<uint32_t> getPointNeighborhoodIndices(const Point& point, const std::vector<Point>& allPoints);
+    std::vector<uint32_t> getPointNeighborhoodIndices(const Point& point, const std::vector<Point>& allPoints);
 
     double consistencyThreshold;
     uint32_t neighborhoodSize;

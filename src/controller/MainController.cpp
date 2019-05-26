@@ -35,9 +35,12 @@ std::string MainController::getImageBPath() const
     return imageMatchingService.getImageBPath();
 }
 
-void MainController::runMatching()
+void MainController::runMatching(const std::string& neighborhoodSizeStr, const std::string& neighborhoodConsistencyThresholdStr)
 {
-    MatchingPointsPairs matchingPoints = imageMatchingService.matchImages();
+    uint32_t neighborhoodSize = static_cast<uint32_t>(std::stoi(neighborhoodSizeStr));
+    double neighborhoodCOnsistencyThreshold = std::stod(neighborhoodConsistencyThresholdStr);
+    MatchingPointsPairs matchingPoints = imageMatchingService.matchImages(
+        neighborhoodSize, neighborhoodCOnsistencyThreshold);
     mainWindow.paintImagesWithMatchingPoints(matchingPoints);
 }
 

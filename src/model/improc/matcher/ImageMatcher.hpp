@@ -22,7 +22,8 @@ public:
     ImageMatcher(ImageMatcher&&) = delete;
     ImageMatcher& operator=(ImageMatcher&&) = delete;
 
-    MatchingPointsPairs matchImages() const;
+    MatchingPointsPairs matchImages(const uint32_t neighborhoodSize,
+                                    const double neighborhoodConsistencyThreshold) const;
 
 private:
     const ImageDescription& imageA;

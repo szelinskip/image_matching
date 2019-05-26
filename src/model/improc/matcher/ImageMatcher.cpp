@@ -15,7 +15,8 @@ ImageMatcher::ImageMatcher(const ImageDescription& imageA, const ImageDescriptio
 
 ImageMatcher::~ImageMatcher() = default;
 
-MatchingPointsPairs ImageMatcher::matchImages() const
+MatchingPointsPairs ImageMatcher::matchImages(const uint32_t neighborhoodSize,
+                                              const double neighborhoodConsistencyThreshold) const
 {
     // TODO
     MutualNearestNeighbor mutualNearestNeighborAlgo;
@@ -23,7 +24,7 @@ MatchingPointsPairs ImageMatcher::matchImages() const
     MatchingPointsPairs matchingPointsPairs =
         mutualNearestNeighborAlgo.matchImages(imageA, imageB);
 
-    NeighborhoodConsistency neighborhoodConsistency(0.5, 30);
+    NeighborhoodConsistency neighborhoodConsistency(neighborhoodConsistencyThreshold, neighborhoodSize);
 
     matchingPointsPairs = neighborhoodConsistency.filterConsistentPairs(matchingPointsPairs);
 

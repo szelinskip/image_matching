@@ -19,7 +19,8 @@ class ImageMatchingService
 public:
     void setController(controller::MainController* controller);
 
-    MatchingPointsPairs matchImages();
+    MatchingPointsPairs matchImages(const uint32_t neighborhoodSize,
+                                    const double neighborhoodConsistencyThreshold);
 
     void setImageAPath(const std::string& imageAPath);
     const std::string getImageAPath() const;
