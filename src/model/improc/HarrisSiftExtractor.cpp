@@ -1,7 +1,10 @@
 #include "HarrisSiftExtractor.hpp"
 
+#include <regex>
 #include <stdlib.h>
 #include <stdexcept>
+
+#include <utils/StringUtils.hpp>
 
 namespace model {
 namespace improc {
@@ -15,11 +18,22 @@ HarrisSiftExtractor::~HarrisSiftExtractor() = default;
 
 std::string HarrisSiftExtractor::extractImageFeatures(const std::string& imagePath) const
 {
-    std::string cmd = buildCommand(imagePath);
+    std::string imagePathLocal = utils::str::replace(imagePath, " ", "\\ ");
+    std::string cmd = buildCommand(imagePathLocal);
     int cmdStatus = system(cmd.c_str());
     if(cmdStatus != 0)
         throw std::runtime_error("Shell command execution error: " + cmd);
-    return imagePath + ".haraff.sift";
+    std::string currPath = imagePathLocal + ".haraff.sift";
+    auto slashPos = currPath.rfind("/");
+    if(slashPos == std::string::npos)
+        throw std::runtime_error("File path error: " + currPath);
+    std::string dirPath = currPath.substr(0, slashPos + 1);
+    std::string pathAfterMove = dirPath + "processing/" + currPath.substr(slashPos + 1);
+    std::string mvCmd = "mv " + dirPath + "*.haraff* " + dirPath + "processing/";
+    cmdStatus = system(mvCmd.c_str());
+    if(cmdStatus != 0)
+        throw std::runtime_error("File move error: " + cmd);
+    return utils::str::replace(pathAfterMove, "\\ ", " ");
 }
 
 std::string HarrisSiftExtractor::buildCommand(const std::string& imagePath) const

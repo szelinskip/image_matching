@@ -18,9 +18,12 @@ SOURCES += \
         $$PWD/model/improc/matcher/MutualNearestNeighbor.cpp \
         $$PWD/model/improc/matcher/ImageMatcher.cpp \
         \
+        $$PWD/controller/MainController.cpp \
+        \
         $$PWD/helpers/Point.cpp \
         \
         $$PWD/utils/MathUtils.cpp \
+        $$PWD/utils/StringUtils.cpp \
         \
         $$PWD/main.cpp
 
@@ -38,6 +41,9 @@ HEADERS += \
         $$PWD/model/improc/matcher/MutualNearestNeighbor.hpp \
         $$PWD/model/improc/matcher/ImageMatcher.hpp \
         \
+        $$PWD/controller/MainController.hpp \
+        \
         $$PWD/helpers/Point.cpp \
         \
-        $$PWD/utils/MathUtils.hpp
+        $$PWD/utils/MathUtils.hpp \
+        $$PWD/utils/StringUtils.hpp

@@ -28,7 +28,7 @@ MatchingPointsPairs MutualNearestNeighbor::matchImages(const ImageDescription& i
         uint32_t indexOfMatchingPoint = 0;
         for(auto j = 0u; j < characteristicPointsB.size(); j++)
         {
-            double distance = utils::euclideanDistance(
+            double distance = utils::math::euclideanDistance(
                 characteristicPointsA[i].getFeatures(),
                 characteristicPointsB[j].getFeatures());
 
@@ -49,7 +49,7 @@ MatchingPointsPairs MutualNearestNeighbor::matchImages(const ImageDescription& i
         uint32_t indexOfMatchingPoint = 0;
         for(auto j = 0u; j < characteristicPointsA.size(); j++)
         {
-            double distance = utils::euclideanDistance(
+            double distance = utils::math::euclideanDistance(
                 characteristicPointsB[i].getFeatures(),
                 characteristicPointsA[j].getFeatures());
 
@@ -64,12 +64,12 @@ MatchingPointsPairs MutualNearestNeighbor::matchImages(const ImageDescription& i
 
     MatchingPointsPairs matchingPointsPairs;
 
-    for(auto i = 0u; i < characteristicPointsB.size(); i++)
+    for(auto i = 0u; i < characteristicPointsA.size(); i++)
     {
-        if(nearestNeighboursForB[i] == nearestNeighboursForA[nearestNeighboursForB[i]])
+        if(i == nearestNeighboursForB[nearestNeighboursForA[i]])
         {
-            matchingPointsPairs.emplace_back(characteristicPointsB[i].getPoint(),
-                                             characteristicPointsA[nearestNeighboursForB[i]].getPoint());
+            matchingPointsPairs.emplace_back(characteristicPointsA[i].getPoint(),
+                                             characteristicPointsB[nearestNeighboursForA[i]].getPoint());
         }
     }
 

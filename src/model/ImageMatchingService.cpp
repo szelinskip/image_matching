@@ -4,7 +4,14 @@
 #include <improc/loader/CharacteristicPointsLoader.hpp>
 #include <improc/matcher/ImageMatcher.hpp>
 
+#include <controller/MainController.hpp>
+
 namespace model {
+
+void ImageMatchingService::setController(controller::MainController* controller)
+{
+    this->controller = controller;
+}
 
 MatchingPointsPairs ImageMatchingService::matchImages()
 {
@@ -40,9 +47,19 @@ void ImageMatchingService::setImageAPath(const std::string& imageAPath)
     this->imageAPath = imageAPath;
 }
 
+const std::string ImageMatchingService::getImageAPath() const
+{
+    return imageAPath;
+}
+
 void ImageMatchingService::setImageBPath(const std::string& imageBPath)
 {
     this->imageBPath = imageBPath;
+}
+
+const std::string ImageMatchingService::getImageBPath() const
+{
+    return imageBPath;
 }
 
 } // namespace model

@@ -18,6 +18,11 @@ public:
     double& X();
     double& Y();
 
+    double getX() const;
+    void setX(const double xDim);
+    double getY() const;
+    void setY(const double yDim);
+
 private:
     double xDim;
     double yDim;

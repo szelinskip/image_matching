@@ -33,4 +33,24 @@ double& Point::Y()
     return yDim;
 }
 
+double Point::getX() const
+{
+    return xDim;
+}
+
+void Point::setX(const double xDim)
+{
+    this->xDim = xDim;
+}
+
+double Point::getY() const
+{
+    return yDim;
+}
+
+void Point::setY(const double yDim)
+{
+    this->yDim = yDim;
+}
+
 } // namespace helpers
