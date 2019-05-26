@@ -38,7 +38,7 @@ void MainWindow::paintImagesWithMatchingPoints(const MatchingPointsPairs& matchi
     painter.begin(&combinedImage);
     painter.drawImage(0, 0, imageA);
     painter.drawImage(imageA.width(), 0, imageB);
-    painter.setPen(QPen(Qt::green, 2, Qt::SolidLine, Qt::FlatCap));
+    painter.setPen(QPen(Qt::green, 1, Qt::SolidLine, Qt::FlatCap));
     drawMatchingPointsLines(painter, matchingPoints, imageA.width());
     painter.end();
     QPixmap pixmap = QPixmap::fromImage(combinedImage);

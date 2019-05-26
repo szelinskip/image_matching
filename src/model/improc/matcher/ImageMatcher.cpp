@@ -1,6 +1,7 @@
 #include "ImageMatcher.hpp"
 
 #include "MutualNearestNeighbor.hpp"
+#include "NeighborhoodConsistency.hpp"
 
 namespace model {
 namespace improc {
@@ -19,7 +20,14 @@ MatchingPointsPairs ImageMatcher::matchImages() const
     // TODO
     MutualNearestNeighbor mutualNearestNeighborAlgo;
 
-    return mutualNearestNeighborAlgo.matchImages(imageA, imageB);
+    MatchingPointsPairs matchingPointsPairs =
+        mutualNearestNeighborAlgo.matchImages(imageA, imageB);
+
+    NeighborhoodConsistency neighborhoodConsistency(0.5, 30);
+
+    matchingPointsPairs = neighborhoodConsistency.filterConsistentPairs(matchingPointsPairs);
+
+    return matchingPointsPairs;
 }
 
 } // namespace matcher

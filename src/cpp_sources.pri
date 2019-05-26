@@ -16,6 +16,7 @@ SOURCES += \
         $$PWD/model/improc/loader/CharacteristicPointsLoader.cpp \
         \
         $$PWD/model/improc/matcher/MutualNearestNeighbor.cpp \
+        $$PWD/model/improc/matcher/NeighborhoodConsistency.cpp \
         $$PWD/model/improc/matcher/ImageMatcher.cpp \
         \
         $$PWD/controller/MainController.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
         $$PWD/model/improc/loader/CharacteristicPointsLoader.hpp \
         \
         $$PWD/model/improc/matcher/MutualNearestNeighbor.hpp \
+        $$PWD/model/improc/matcher/NeighborhoodConsistency.hpp \
         $$PWD/model/improc/matcher/ImageMatcher.hpp \
         \
         $$PWD/controller/MainController.hpp \

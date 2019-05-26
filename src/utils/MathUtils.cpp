@@ -33,5 +33,11 @@ double euclideanDistance(const std::vector<int32_t>& first, const std::vector<in
     return std::sqrt(acc);
 }
 
+double euclideanDistance(const helpers::Point& first, const helpers::Point& second)
+{
+    return std::sqrt((first.getX() - second.getX()) * (first.getX() - second.getX())
+                     + (first.getY() - second.getY()) * (first.getY() - second.getY()));
+}
+
 } // namespace math
 } // namespace utils
