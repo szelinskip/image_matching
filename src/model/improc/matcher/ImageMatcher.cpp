@@ -1,5 +1,7 @@
 #include "ImageMatcher.hpp"
 
+#include "AffineTransformation.hpp"
+#include "PerspectiveTransformation.hpp"
 #include "MutualNearestNeighbor.hpp"
 #include "NeighborhoodConsistency.hpp"
 
@@ -29,6 +31,19 @@ MatchingPointsPairs ImageMatcher::matchImages(const uint32_t neighborhoodSize,
     matchingPointsPairs = neighborhoodConsistency.filterConsistentPairs(matchingPointsPairs);
 
     return matchingPointsPairs;
+}
+
+Eigen::Matrix2Xd ImageMatcher::makePointsMatrix(const Points& points) const
+{
+    Eigen::Matrix2Xd pointsMatrix;
+    for(const auto& point : points)
+    {
+        Eigen::Vector2d pointVec(point.getX(), point.getY());
+        pointsMatrix.conservativeResize(Eigen::NoChange, pointsMatrix.cols() + 1);
+        pointsMatrix.col(pointsMatrix.cols() - 1) = std::move(pointVec);
+    }
+
+    return pointsMatrix;
 }
 
 } // namespace matcher

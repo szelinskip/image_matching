@@ -2,35 +2,29 @@
 
 #include <cmath>
 
+#include <Eigen/Dense>
+
 namespace utils {
 namespace math {
 
 double euclideanDistance(const std::vector<double>& first, const std::vector<double>& second)
 {
-    // TODO: use library for linear algebra
     // assumption first.size() == second.size()
 
-    double acc = 0.0;
-    for(auto i = 0u; i < first.size(); i++)
-    {
-        double tmp = (first[i] - second[i]) * (first[i] - second[i]);
-        acc += tmp;
-    }
-    return std::sqrt(acc);
+    Eigen::Map<const Eigen::VectorXd> firstVec(first.data(), static_cast<int>(first.size()));
+    Eigen::Map<const Eigen::VectorXd> secondVec(second.data(), static_cast<int>(second.size()));
+
+    return (firstVec - secondVec).norm();
 }
 
 double euclideanDistance(const std::vector<int32_t>& first, const std::vector<int32_t>& second)
 {
-    // TODO: use library for linear algebra
     // assumption first.size() == second.size()
 
-    double acc = 0.0;
-    for(auto i = 0u; i < first.size(); i++)
-    {
-        double tmp = (first[i] - second[i]) * (first[i] - second[i]);
-        acc += tmp;
-    }
-    return std::sqrt(acc);
+    std::vector<double> firstAsDoubleVec(first.cbegin(), first.cend());
+    std::vector<double> secondAsDoubleVec(second.cbegin(), second.cend());
+
+    return euclideanDistance(firstAsDoubleVec, secondAsDoubleVec);
 }
 
 double euclideanDistance(const helpers::Point& first, const helpers::Point& second)

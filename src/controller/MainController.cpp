@@ -1,5 +1,7 @@
 #include "MainController.hpp"
 
+#include <clocale>
+
 #include <view/mainwindow.h>
 #include <model/ImageMatchingService.hpp>
 
@@ -9,6 +11,7 @@ MainController::MainController(MainWindow& mainWindow, model::ImageMatchingServi
     : mainWindow(mainWindow)
     , imageMatchingService(imageMatchingService)
 {
+    std::setlocale(LC_ALL, "C");
     mainWindow.setController(this);
     imageMatchingService.setController(this);
 }
@@ -38,9 +41,9 @@ std::string MainController::getImageBPath() const
 void MainController::runMatching(const std::string& neighborhoodSizeStr, const std::string& neighborhoodConsistencyThresholdStr)
 {
     uint32_t neighborhoodSize = static_cast<uint32_t>(std::stoi(neighborhoodSizeStr));
-    double neighborhoodCOnsistencyThreshold = std::stod(neighborhoodConsistencyThresholdStr);
+    double neighborhoodConsistencyThreshold = std::stod(neighborhoodConsistencyThresholdStr);
     MatchingPointsPairs matchingPoints = imageMatchingService.matchImages(
-        neighborhoodSize, neighborhoodCOnsistencyThreshold);
+        neighborhoodSize, neighborhoodConsistencyThreshold);
     mainWindow.paintImagesWithMatchingPoints(matchingPoints);
 }
 

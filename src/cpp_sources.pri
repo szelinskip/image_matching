@@ -1,4 +1,6 @@
 INCLUDEPATH += \
+            /usr/include/eigen3/ \
+            \
             $$PWD/ \
             $$PWD/model/ \
             $$PWD/model/improc/ \
@@ -18,6 +20,8 @@ SOURCES += \
         $$PWD/model/improc/matcher/MutualNearestNeighbor.cpp \
         $$PWD/model/improc/matcher/NeighborhoodConsistency.cpp \
         $$PWD/model/improc/matcher/ImageMatcher.cpp \
+        $$PWD/model/improc/matcher/AffineTransformation.cpp \
+        $$PWD/model/improc/matcher/PerspectiveTransformation.cpp \
         \
         $$PWD/controller/MainController.cpp \
         \
@@ -42,6 +46,8 @@ HEADERS += \
         $$PWD/model/improc/matcher/MutualNearestNeighbor.hpp \
         $$PWD/model/improc/matcher/NeighborhoodConsistency.hpp \
         $$PWD/model/improc/matcher/ImageMatcher.hpp \
+        $$PWD/model/improc/matcher/AffineTransformation.hpp \
+        $$PWD/model/improc/matcher/PerspectiveTransformation.hpp \
         \
         $$PWD/controller/MainController.hpp \
         \

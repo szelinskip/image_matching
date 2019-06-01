@@ -1,9 +1,6 @@
 #include <view/mainwindow.h>
 #include <QApplication>
 
-#include <iostream>
-#include <unistd.h>
-
 #include <model/ImageMatchingService.hpp>
 #include <controller/MainController.hpp>
 

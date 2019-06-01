@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Eigen/Dense>
+
 #include <improc/ImageDescription.hpp>
 #include <helpers/Point.hpp>
 
@@ -8,6 +10,7 @@ namespace improc {
 namespace matcher {
 
 using helpers::Point;
+using Points = std::vector<Point>;
 using MatchingPointsPairs = std::vector<std::pair<Point, Point>>;
 
 class ImageMatcher
@@ -26,6 +29,8 @@ public:
                                     const double neighborhoodConsistencyThreshold) const;
 
 private:
+    Eigen::Matrix2Xd makePointsMatrix(const Points& points) const;
+
     const ImageDescription& imageA;
     const ImageDescription& imageB;
 };
