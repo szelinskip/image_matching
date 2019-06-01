@@ -2,18 +2,13 @@
 
 namespace model {
 namespace improc {
-namespace matcher {
-
-AffineTransformation::AffineTransformation() = default;
 
 AffineTransformation::AffineTransformation(const PointsPair& pair1,
                                            const PointsPair& pair2,
                                            const PointsPair& pair3)
-    :transformationMatrix(calculateModel(pair1, pair2, pair3))
+    : Transformation(calculateModel(pair1, pair2, pair3))
 {
 }
-
-AffineTransformation::~AffineTransformation() = default;
 
 Point AffineTransformation::applyTransformation(const Point& point) const
 {
@@ -34,13 +29,6 @@ Eigen::Matrix2Xd AffineTransformation::applyMassiveTransformation(
     pointsTransformed.conservativeResize(pointsTransformed.rows() - 1, Eigen::NoChange);  // remove last row
 
     return pointsTransformed;
-}
-
-void AffineTransformation::buildModel(const PointsPair& pair1,
-                                      const PointsPair& pair2,
-                                      const PointsPair& pair3)
-{
-    transformationMatrix = calculateModel(pair1, pair2, pair3);
 }
 
 Eigen::Matrix3d AffineTransformation::calculateModel(const PointsPair& pair1,
@@ -72,6 +60,5 @@ Eigen::Matrix3d AffineTransformation::calculateModel(const PointsPair& pair1,
     return transformationMatrix;
 }
 
-} // namespace matcher
 } // namespace improc
 } // namespace model

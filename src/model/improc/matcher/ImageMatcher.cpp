@@ -1,9 +1,11 @@
 #include "ImageMatcher.hpp"
 
-#include "AffineTransformation.hpp"
-#include "PerspectiveTransformation.hpp"
 #include "MutualNearestNeighbor.hpp"
 #include "NeighborhoodConsistency.hpp"
+#include "RansacAlgo.hpp"
+#include <improc/transformation/TransformationModelAffine.hpp>
+#include <improc/transformation/TransformationModelPerspective.hpp>
+#include <improc/transformation/MatrixData.hpp>
 
 namespace model {
 namespace improc {
@@ -17,8 +19,8 @@ ImageMatcher::ImageMatcher(const ImageDescription& imageA, const ImageDescriptio
 
 ImageMatcher::~ImageMatcher() = default;
 
-MatchingPointsPairs ImageMatcher::matchImages(const uint32_t neighborhoodSize,
-                                              const double neighborhoodConsistencyThreshold) const
+MatchingPointsPairs ImageMatcher::matchImages(const uint32_t /*neighborhoodSize*/,
+                                              const double /*neighborhoodConsistencyThreshold*/) const
 {
     // TODO
     MutualNearestNeighbor mutualNearestNeighborAlgo;
@@ -26,24 +28,19 @@ MatchingPointsPairs ImageMatcher::matchImages(const uint32_t neighborhoodSize,
     MatchingPointsPairs matchingPointsPairs =
         mutualNearestNeighborAlgo.matchImages(imageA, imageB);
 
-    NeighborhoodConsistency neighborhoodConsistency(neighborhoodConsistencyThreshold, neighborhoodSize);
+//    NeighborhoodConsistency neighborhoodConsistency(neighborhoodConsistencyThreshold, neighborhoodSize);
 
-    matchingPointsPairs = neighborhoodConsistency.filterConsistentPairs(matchingPointsPairs);
+//    matchingPointsPairs = neighborhoodConsistency.filterConsistentPairs(matchingPointsPairs);
+
+    RansacAlgo<TransformationModelPerspective> ransac(100, 50, 4);
+
+    MatrixData matrixData(matchingPointsPairs);
+
+    std::pair<std::unique_ptr<TransformationModel>, MatrixData> modelConsensusPair = ransac.runRansac(matrixData);
+
+    matchingPointsPairs = modelConsensusPair.second.getDataAsPointsPairsVec();
 
     return matchingPointsPairs;
-}
-
-Eigen::Matrix2Xd ImageMatcher::makePointsMatrix(const Points& points) const
-{
-    Eigen::Matrix2Xd pointsMatrix;
-    for(const auto& point : points)
-    {
-        Eigen::Vector2d pointVec(point.getX(), point.getY());
-        pointsMatrix.conservativeResize(Eigen::NoChange, pointsMatrix.cols() + 1);
-        pointsMatrix.col(pointsMatrix.cols() - 1) = std::move(pointVec);
-    }
-
-    return pointsMatrix;
 }
 
 } // namespace matcher

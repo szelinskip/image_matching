@@ -2,19 +2,14 @@
 
 namespace model {
 namespace improc {
-namespace matcher {
-
-PerspectiveTransformation::PerspectiveTransformation() = default;
 
 PerspectiveTransformation::PerspectiveTransformation(const PointsPair& pair1,
                                                      const PointsPair& pair2,
                                                      const PointsPair& pair3,
                                                      const PointsPair& pair4)
-    :transformationMatrix(calculateModel(pair1, pair2, pair3, pair4))
+    : Transformation(calculateModel(pair1, pair2, pair3, pair4))
 {
 }
-
-PerspectiveTransformation::~PerspectiveTransformation() = default;
 
 Point PerspectiveTransformation::applyTransformation(const Point& point) const
 {
@@ -37,14 +32,6 @@ Eigen::Matrix2Xd PerspectiveTransformation::applyMassiveTransformation(
     Eigen::Matrix2Xd normalizedTransformedPoints = pointsTransformed.colwise().hnormalized();
 
     return normalizedTransformedPoints;
-}
-
-void PerspectiveTransformation::buildModel(const PointsPair& pair1,
-                                           const PointsPair& pair2,
-                                           const PointsPair& pair3,
-                                           const PointsPair& pair4)
-{
-    transformationMatrix = calculateModel(pair1, pair2, pair3, pair4);
 }
 
 Eigen::Matrix3d PerspectiveTransformation::calculateModel(const PointsPair& pair1,
@@ -90,6 +77,5 @@ Eigen::Matrix3d PerspectiveTransformation::calculateModel(const PointsPair& pair
     return transformationMatrix;
 }
 
-} // namespace matcher
 } // namespace improc
 } // namespace model

@@ -29,8 +29,6 @@ public:
                                     const double neighborhoodConsistencyThreshold) const;
 
 private:
-    Eigen::Matrix2Xd makePointsMatrix(const Points& points) const;
-
     const ImageDescription& imageA;
     const ImageDescription& imageB;
 };
