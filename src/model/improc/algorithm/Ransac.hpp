@@ -26,11 +26,26 @@ public:
     virtual std::pair<std::unique_ptr<TransformationModel>, MatrixData>
         runRansac(const MatchingPointsPairs& pointsPairs) = 0;
 
+    template<class Model, template<class, class, class> class RansacAlgoDecorator, class... Args>
+    static void decorate(
+        std::unique_ptr<RansacAlgo<Model, MatrixData, typename MatrixData::Sample>>& algoBase,
+        Args... args);
+
 protected:
     template<class Model, template<class, class, class> class RansacAlgo>
     static std::pair<std::unique_ptr<TransformationModel>, MatrixData> run(
-        RansacAlgo<Model, MatrixData, typename MatrixData::Sample>& algo, const MatchingPointsPairs& pointsPairs);
+            RansacAlgo<Model, MatrixData, typename MatrixData::Sample>& algo, const MatchingPointsPairs& pointsPairs);
 };
+
+template<class Model, template<class, class, class> class RansacAlgoDecorator, class... Args>
+void Ransac::decorate(
+    std::unique_ptr<RansacAlgo<Model, MatrixData, typename MatrixData::Sample>>& algoBase,
+    Args... args)
+{
+    algoBase =
+        std::make_unique<RansacAlgoDecorator<Model, MatrixData, typename MatrixData::Sample>>(
+            std::move(algoBase), std::forward<Args>(args)...);
+}
 
 template<class Model, template<class, class, class> class RansacAlgo>
 std::pair<std::unique_ptr<TransformationModel>, MatrixData> Ransac::run(

@@ -13,13 +13,17 @@ namespace algorithm {
 class PerspectiveTransformationRansac : public Ransac
 {
 public:
+    typedef TransformationModelPerspective ModelType;
+
     PerspectiveTransformationRansac(const double errorThreshold, const uint32_t itersNum);
 
     virtual std::pair<std::unique_ptr<TransformationModel>, MatrixData>
         runRansac(const MatchingPointsPairs& pointsPairs) override;
 
+    std::unique_ptr<RansacAlgo<ModelType>>& getAlgoPtrRef();
+
 private:
-    RansacAlgo<TransformationModelPerspective> algo;
+    std::unique_ptr<RansacAlgo<ModelType>> algo;
 };
 
 } // namespace algorithm

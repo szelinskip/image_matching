@@ -28,7 +28,7 @@ public:
     uint32_t size() const;
     Sample getSample(const uint32_t index) const;
     void addSample(const Sample& sample);
-    std::vector<Sample> getDataAsPointsPairsVec();
+    std::vector<Sample> getDataAsSamplesVec() const;
 
 private:
     Eigen::Matrix4Xd makePointsPairsMatrix(const std::vector<Sample>& pointsPairs) const;

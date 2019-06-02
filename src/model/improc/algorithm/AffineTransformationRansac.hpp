@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <memory>
 
 #include "RansacAlgo.hpp"
 #include "Ransac.hpp"
@@ -13,13 +14,17 @@ namespace algorithm {
 class AffineTransformationRansac : public Ransac
 {
 public:
+    typedef TransformationModelAffine ModelType;
+
     AffineTransformationRansac(const double errorThreshold, const uint32_t itersNum);
 
     virtual std::pair<std::unique_ptr<TransformationModel>, MatrixData>
         runRansac(const MatchingPointsPairs& pointsPairs) override;
 
+    std::unique_ptr<RansacAlgo<ModelType>>& getAlgoPtrRef();
+
 private:
-    RansacAlgo<TransformationModelAffine> algo;
+    std::unique_ptr<RansacAlgo<ModelType>> algo;
 };
 
 } // namespace algorithm

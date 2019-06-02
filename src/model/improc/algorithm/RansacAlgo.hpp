@@ -24,8 +24,12 @@ public:
     RansacAlgo(RansacAlgo&&) = delete;
     RansacAlgo& operator=(RansacAlgo&&) = delete;
 
-    std::pair<std::unique_ptr<Model>, Data> runRansac(const Data& data);
-    std::vector<Sample> getSamplesRandomly(const Data& data);
+    virtual std::pair<std::unique_ptr<Model>, Data> runRansac(const Data& data);
+    virtual std::vector<Sample> getSamplesRandomly(const Data& data);
+
+    double getErrorThreshold() const;
+    uint32_t getItersNum() const;
+    uint32_t getSamplesNum() const;
 
 protected:
     std::random_device rd;
@@ -107,6 +111,24 @@ std::vector<Sample> RansacAlgo<Model, Data, Sample>::getSamplesRandomly(const Da
     }
 
     return samples;
+}
+
+template<class Model, class Data, class Sample>
+double RansacAlgo<Model, Data, Sample>::getErrorThreshold() const
+{
+    return errorThreshold;
+}
+
+template<class Model, class Data, class Sample>
+uint32_t RansacAlgo<Model, Data, Sample>::getItersNum() const
+{
+    return itersNum;
+}
+
+template<class Model, class Data, class Sample>
+uint32_t RansacAlgo<Model, Data, Sample>::getSamplesNum() const
+{
+    return samplesNum;
 }
 
 } // namespace algorithm

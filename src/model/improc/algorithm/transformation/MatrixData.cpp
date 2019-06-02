@@ -47,7 +47,7 @@ void MatrixData::addSample(const MatrixData::Sample& sample)
     data.col(data.cols() - 1) = sampleVec;
 }
 
-std::vector<MatrixData::Sample> MatrixData::getDataAsPointsPairsVec()
+std::vector<MatrixData::Sample> MatrixData::getDataAsSamplesVec() const
 {
     std::vector<MatrixData::Sample> pointsPairsVec;
     pointsPairsVec.reserve(static_cast<uint32_t>(data.cols()));

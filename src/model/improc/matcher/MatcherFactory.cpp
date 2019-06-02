@@ -5,6 +5,7 @@
 #include <improc/algorithm/NeighborhoodConsistency.hpp>
 #include <improc/algorithm/AffineTransformationRansac.hpp>
 #include <improc/algorithm/PerspectiveTransformationRansac.hpp>
+#include <improc/algorithm/RansacFactory.hpp>
 
 namespace model {
 namespace improc {
@@ -21,18 +22,20 @@ std::unique_ptr<Matcher> MatcherFactory::make(const ImageMatchingParams& params)
             params.neighborhoodConsistencyThreshold, params.neighborhoodSize));
     }
 
-    if(params.matchingMethod == "RANSAC Affine")
+    if(params.matchingMethod.find("RANSAC") != std::string::npos)
     {
-        return std::make_unique<RansacMatcher>(
-            std::make_unique<algorithm::AffineTransformationRansac>(
-                params.errorThreshold, params.itersNum));
-    }
-
-    if(params.matchingMethod == "RANSAC Perspective")
-    {
-        return std::make_unique<RansacMatcher>(
-            std::make_unique<algorithm::PerspectiveTransformationRansac>(
-                params.errorThreshold, params.itersNum));
+        algorithm::RansacFactory ransacFactory;
+        algorithm::RansacParams ransacParams;
+        ransacParams.ransacMethod = params.matchingMethod;
+        ransacParams.errorThreshold = params.errorThreshold;
+        ransacParams.itersNum = params.itersNum;
+        ransacParams.distanceHeuristicEnabled = params.distanceHeuristicEnabled;
+        ransacParams.distanceHeuristcLowerBound = params.distanceHeuristcLowerBound;
+        ransacParams.distanceHeuristcUpperBound = params.distanceHeuristcUpperBound;
+        ransacParams.itersNumEstimationHeuristicEnabled = params.itersNumEstimationHeuristicEnabled;
+        ransacParams.itersNumHeuristicProbGoodEnoughModel = params.itersNumHeuristicProbGoodEnoughModel;
+        ransacParams.itersNumHeuristicNotNoiseProb = params.itersNumHeuristicNotNoiseProb;
+        return std::make_unique<RansacMatcher>(ransacFactory.make(ransacParams));
     }
 
     throw std::runtime_error("Invalid matcher method: " + params.matchingMethod);

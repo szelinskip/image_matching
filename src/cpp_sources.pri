@@ -28,6 +28,7 @@ SOURCES += \
         $$PWD/model/improc/algorithm/PerspectiveTransformationRansac.cpp \
         $$PWD/model/improc/algorithm/AffineTransformationRansac.cpp \
         $$PWD/model/improc/algorithm/Ransac.cpp \
+        $$PWD/model/improc/algorithm/RansacFactory.cpp \
         \
         $$PWD/model/improc/algorithm/transformation/Transformation.cpp \
         $$PWD/model/improc/algorithm/transformation/AffineTransformation.cpp \
@@ -70,6 +71,8 @@ HEADERS += \
         $$PWD/model/improc/algorithm/AffineTransformationRansac.hpp \
         $$PWD/model/improc/algorithm/Ransac.hpp \
         $$PWD/model/improc/algorithm/RansacAlgo.hpp \
+        $$PWD/model/improc/algorithm/RansacDistanceHeuristicDecorator.hpp \
+        $$PWD/model/improc/algorithm/RansacFactory.hpp \
         \
         $$PWD/model/improc/algorithm/transformation/Transformation.hpp \
         $$PWD/model/improc/algorithm/transformation/AffineTransformation.hpp \

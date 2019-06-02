@@ -14,7 +14,7 @@ RansacMatcher::RansacMatcher(std::unique_ptr<algorithm::Ransac>&& ransac)
 MatchingPointsPairs RansacMatcher::matchPoints(const MatchingPointsPairs& pointsPairs)
 {
     auto consensusModel = ransac->runRansac(pointsPairs);
-    return consensusModel.second.getDataAsPointsPairsVec();
+    return consensusModel.second.getDataAsSamplesVec();
 }
 
 } // namespace matcher
