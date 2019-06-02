@@ -21,6 +21,8 @@ public:
     virtual std::pair<std::unique_ptr<TransformationModel>, MatrixData>
         runRansac(const MatchingPointsPairs& pointsPairs) override;
 
+    virtual uint32_t getItersNum() const override;
+
     std::unique_ptr<RansacAlgo<ModelType>>& getAlgoPtrRef();
 
 private:

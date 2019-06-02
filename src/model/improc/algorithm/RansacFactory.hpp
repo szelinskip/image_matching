@@ -4,6 +4,7 @@
 #include "AffineTransformationRansac.hpp"
 #include "PerspectiveTransformationRansac.hpp"
 #include "RansacDistanceHeuristicDecorator.hpp"
+#include "RansacItersNumHeuristicDecorator.hpp"
 
 namespace model {
 namespace improc {
@@ -44,6 +45,15 @@ std::unique_ptr<Ransac> RansacFactory::makeAlgo(const RansacParams& params)
         Ransac::decorate<typename AlgoType::ModelType,
                          RansacDistanceHeuristicDecorator>(
             algo, params.distanceHeuristcLowerBound, params.distanceHeuristcUpperBound);
+    }
+
+    if(params.itersNumEstimationHeuristicEnabled)
+    {
+        AlgoType* ransacDerived = static_cast<AlgoType*>(ransac.get());
+        std::unique_ptr<RansacAlgo<typename AlgoType::ModelType>>& algo = ransacDerived->getAlgoPtrRef();
+        Ransac::decorate<typename AlgoType::ModelType,
+                         RansacItersNumHeuristicDecorator>(
+            algo, params.itersNumHeuristicProbGoodEnoughModel, params.itersNumHeuristicNotNoiseProb);
     }
 
     return ransac;

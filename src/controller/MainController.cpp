@@ -62,8 +62,8 @@ void MainController::runMatching(const RawImageMatchingParams& rawParams)
     if(!rawParams.itersNumHeuristicNotNoiseProbStr.empty())
         params.itersNumHeuristicNotNoiseProb = std::stod(rawParams.itersNumHeuristicNotNoiseProbStr);
 
-    MatchingPointsPairs matchingPoints = imageMatchingService.matchImages(params);
-    mainWindow.paintImagesWithMatchingPoints(matchingPoints);
+    model::improc::matcher::MatchingResult matchingResult = imageMatchingService.matchImages(params);
+    mainWindow.updateUiWithMatchingResult(matchingResult);
 }
 
 } // namespace controller

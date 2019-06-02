@@ -6,6 +6,7 @@
 #include <improc/ImageDescription.hpp>
 #include "ImageMatchingParams.hpp"
 #include <improc/matcher/MatcherFactory.hpp>
+#include <improc/matcher/MatchingResult.hpp>
 
 namespace controller {
 class MainController;
@@ -13,15 +14,12 @@ class MainController;
 
 namespace model {
 
-using helpers::Point;
-using MatchingPointsPairs = std::vector<std::pair<Point, Point>>;
-
 class ImageMatchingService
 {
 public:
     void setController(controller::MainController* controller);
 
-    MatchingPointsPairs matchImages(const ImageMatchingParams& params);
+    improc::matcher::MatchingResult matchImages(const ImageMatchingParams& params);
 
     void setImageAPath(const std::string& imageAPath);
     const std::string getImageAPath() const;

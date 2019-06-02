@@ -13,7 +13,7 @@ void ImageMatchingService::setController(controller::MainController* controller)
     this->controller = controller;
 }
 
-MatchingPointsPairs ImageMatchingService::matchImages(const ImageMatchingParams& params)
+improc::matcher::MatchingResult ImageMatchingService::matchImages(const ImageMatchingParams& params)
 {
     initImages();
 

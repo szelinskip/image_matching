@@ -7,14 +7,11 @@
 #include <improc/ImageDescription.hpp>
 #include <helpers/Point.hpp>
 #include "Matcher.hpp"
+#include "MatchingResult.hpp"
 
 namespace model {
 namespace improc {
 namespace matcher {
-
-using helpers::Point;
-using Points = std::vector<Point>;
-using MatchingPointsPairs = std::vector<std::pair<Point, Point>>;
 
 class ImageMatcher
 {
@@ -29,7 +26,7 @@ public:
     ImageMatcher(ImageMatcher&&) = delete;
     ImageMatcher& operator=(ImageMatcher&&) = delete;
 
-    MatchingPointsPairs matchImages() const;
+    MatchingResult matchImages() const;
 
 private:
     const ImageDescription& imageA;

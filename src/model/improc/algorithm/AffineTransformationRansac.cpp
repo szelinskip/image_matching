@@ -16,6 +16,11 @@ std::pair<std::unique_ptr<TransformationModel>, MatrixData>
     return Ransac::run(*algo, pointsPairs);
 }
 
+uint32_t AffineTransformationRansac::getItersNum() const
+{
+    return algo->getItersNum();
+}
+
 std::unique_ptr<RansacAlgo<AffineTransformationRansac::ModelType>>& AffineTransformationRansac::getAlgoPtrRef()
 {
     return algo;

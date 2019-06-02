@@ -22,6 +22,7 @@ public:
     RansacMatcher(std::unique_ptr<algorithm::Ransac>&& ransac);
 
     virtual MatchingPointsPairs matchPoints(const MatchingPointsPairs& pointsPairs) override;
+    uint32_t getItersNum() const;
 
 private:
     std::unique_ptr<algorithm::Ransac> ransac;

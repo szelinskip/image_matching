@@ -17,6 +17,11 @@ std::pair<std::unique_ptr<TransformationModel>, MatrixData>
     return Ransac::run(*algo, pointsPairs);
 }
 
+uint32_t PerspectiveTransformationRansac::getItersNum() const
+{
+    return algo->getItersNum();
+}
+
 std::unique_ptr<RansacAlgo<PerspectiveTransformationRansac::ModelType>>&
     PerspectiveTransformationRansac::getAlgoPtrRef()
 {

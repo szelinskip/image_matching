@@ -17,6 +17,11 @@ MatchingPointsPairs RansacMatcher::matchPoints(const MatchingPointsPairs& points
     return consensusModel.second.getDataAsSamplesVec();
 }
 
+uint32_t RansacMatcher::getItersNum() const
+{
+    return ransac->getItersNum();
+}
+
 } // namespace matcher
 } // namespace improc
 } // namespace model

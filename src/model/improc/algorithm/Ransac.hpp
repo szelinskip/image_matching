@@ -26,6 +26,8 @@ public:
     virtual std::pair<std::unique_ptr<TransformationModel>, MatrixData>
         runRansac(const MatchingPointsPairs& pointsPairs) = 0;
 
+    virtual uint32_t getItersNum() const = 0;
+
     template<class Model, template<class, class, class> class RansacAlgoDecorator, class... Args>
     static void decorate(
         std::unique_ptr<RansacAlgo<Model, MatrixData, typename MatrixData::Sample>>& algoBase,

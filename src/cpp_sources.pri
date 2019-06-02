@@ -72,6 +72,7 @@ HEADERS += \
         $$PWD/model/improc/algorithm/Ransac.hpp \
         $$PWD/model/improc/algorithm/RansacAlgo.hpp \
         $$PWD/model/improc/algorithm/RansacDistanceHeuristicDecorator.hpp \
+        $$PWD/model/improc/algorithm/RansacItersNumHeuristicDecorator.hpp \
         $$PWD/model/improc/algorithm/RansacFactory.hpp \
         \
         $$PWD/model/improc/algorithm/transformation/Transformation.hpp \

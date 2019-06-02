@@ -29,6 +29,7 @@ public:
 
     double getErrorThreshold() const;
     uint32_t getItersNum() const;
+    void setItersNum(const uint32_t itersNum);
     uint32_t getSamplesNum() const;
 
 protected:
@@ -123,6 +124,12 @@ template<class Model, class Data, class Sample>
 uint32_t RansacAlgo<Model, Data, Sample>::getItersNum() const
 {
     return itersNum;
+}
+
+template<class Model, class Data, class Sample>
+void RansacAlgo<Model, Data, Sample>::setItersNum(const uint32_t itersNum)
+{
+    this->itersNum = itersNum;
 }
 
 template<class Model, class Data, class Sample>

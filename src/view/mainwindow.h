@@ -13,6 +13,7 @@
 #include <vector>
 
 #include <helpers/Point.hpp>
+#include <model/improc/matcher/MatchingResult.hpp>
 
 namespace Ui {
 class MainWindow;
@@ -34,7 +35,7 @@ public:
     ~MainWindow();
 
     void setController(controller::MainController* controller);
-    void paintImagesWithMatchingPoints(const MatchingPointsPairs& matchingPoints);
+    void updateUiWithMatchingResult(const model::improc::matcher::MatchingResult& matchingResult);
 
 private slots:
     void on_runMatchingBtn_clicked();
@@ -45,6 +46,7 @@ private:
     void loadImage();
     QString getFilenameViaDialog(const QString& info);
     void drawImages(const std::function<void(QPainter&, const int32_t)>& additionalPainting);
+    void paintImagesWithMatchingPoints(const MatchingPointsPairs& matchingPoints);
     void drawMatchingPointsLines(QPainter& painter,
                                  const MatchingPointsPairs& matchingPoints,
                                  const int32_t xOffset);

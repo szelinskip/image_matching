@@ -63,6 +63,17 @@ void MainWindow::paintImagesWithMatchingPoints(const MatchingPointsPairs& matchi
                });
 }
 
+void MainWindow::updateUiWithMatchingResult(const model::improc::matcher::MatchingResult& matchingResult)
+{
+    paintImagesWithMatchingPoints(matchingResult.finalMatchingPairs);
+    ui->elapsedTimeText->setText(QString::number(matchingResult.elapsedTime.count() / 1000.0));
+    ui->imageACharacteristicPointsNumText->setText(QString::number(matchingResult.imageACharacteristicsPointsNum));
+    ui->imageBCharacteristicPointsNumText->setText(QString::number(matchingResult.imageBCharacteristicsPointsNum));
+    ui->mutualNeighborhoodPairsNumText->setText(QString::number(matchingResult.mutualNeighborhoodPointsPairs));
+    ui->finalMatchingPointsNumText->setText(QString::number(matchingResult.finalNumOfMatchingPointsPairs));
+    ui->ransacPerformedItersText->setText(QString::number(matchingResult.ransacItersNum));
+}
+
 void MainWindow::initialize()
 {
     // ???
