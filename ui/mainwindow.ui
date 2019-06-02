@@ -67,9 +67,9 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>710</y>
+      <y>700</y>
       <width>171</width>
-      <height>51</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -79,20 +79,20 @@
    <widget class="QTextEdit" name="neighborhoodSizeTextEdit">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>850</y>
-      <width>171</width>
-      <height>51</height>
+      <x>320</x>
+      <y>810</y>
+      <width>41</width>
+      <height>31</height>
      </rect>
     </property>
    </widget>
    <widget class="QTextEdit" name="neighborhoodConsistencyThresholdTextEdit">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>850</y>
-      <width>171</width>
-      <height>51</height>
+      <x>320</x>
+      <y>870</y>
+      <width>41</width>
+      <height>31</height>
      </rect>
     </property>
    </widget>
@@ -112,14 +112,229 @@
    <widget class="QLabel" name="neighborhoodConsistencyLabel">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>820</y>
+      <x>40</x>
+      <y>880</y>
       <width>251</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
      <string>Neighborhood consistency threshold</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="matchingMethodComboBox">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>700</y>
+      <width>221</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Neighborhood consistency</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>RANSAC Affine</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>RANSAC Perspective</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="neighborhoodConsistencyOptionsLabel">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>760</y>
+      <width>301</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Neighborhood consistency method options</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ransacOptionsLabel">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>760</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>RANSAC options</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="errorThresholdLabel">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>820</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Error threshold</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="itersNumLabel">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>870</y>
+      <width>161</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Iterations number</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="errorThresholdTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>820</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="itersNumTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>870</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="distanceHeuristicCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>760</y>
+      <width>301</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Points pairs distance heuristic (RANSAC)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="distanceLowerBoundLabel">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>820</y>
+      <width>161</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Distance lower bound</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="distanceUpperBoundLabel">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>870</y>
+      <width>161</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Distance upper bound</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="distanceLowerBoundTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>820</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="distanceUpperBoundTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>870</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="itersNumEstimationHeuristicCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>1170</x>
+      <y>760</y>
+      <width>301</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Iterations number estimation (RANSAC)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="pProbabilityLabel">
+    <property name="geometry">
+     <rect>
+      <x>1170</x>
+      <y>820</y>
+      <width>481</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Probability that model will be good enough after estimated iters num</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="wProbabilityLabel">
+    <property name="geometry">
+     <rect>
+      <x>1170</x>
+      <y>870</y>
+      <width>281</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Probability that selected pair is not noise</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="pProbabilityTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>1670</x>
+      <y>820</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="wProbabilityTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>1670</x>
+      <y>870</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
     </property>
    </widget>
   </widget>

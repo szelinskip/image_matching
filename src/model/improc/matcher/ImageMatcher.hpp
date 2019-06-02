@@ -1,9 +1,12 @@
 #pragma once
 
+#include <memory>
+
 #include <Eigen/Dense>
 
 #include <improc/ImageDescription.hpp>
 #include <helpers/Point.hpp>
+#include "Matcher.hpp"
 
 namespace model {
 namespace improc {
@@ -16,7 +19,8 @@ using MatchingPointsPairs = std::vector<std::pair<Point, Point>>;
 class ImageMatcher
 {
 public:
-    ImageMatcher(const ImageDescription& imageA, const ImageDescription& imageB);
+    ImageMatcher(const ImageDescription& imageA, const ImageDescription& imageB,
+                 std::unique_ptr<Matcher>&& matcher);
     ~ImageMatcher();
 
     ImageMatcher() = delete;
@@ -25,12 +29,13 @@ public:
     ImageMatcher(ImageMatcher&&) = delete;
     ImageMatcher& operator=(ImageMatcher&&) = delete;
 
-    MatchingPointsPairs matchImages(const uint32_t neighborhoodSize,
-                                    const double neighborhoodConsistencyThreshold) const;
+    MatchingPointsPairs matchImages() const;
 
 private:
     const ImageDescription& imageA;
     const ImageDescription& imageB;
+
+    std::unique_ptr<Matcher> matcher;
 };
 
 } // namespace matcher

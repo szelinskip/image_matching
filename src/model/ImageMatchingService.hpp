@@ -4,6 +4,8 @@
 #include <string>
 
 #include <improc/ImageDescription.hpp>
+#include "ImageMatchingParams.hpp"
+#include <improc/matcher/MatcherFactory.hpp>
 
 namespace controller {
 class MainController;
@@ -19,8 +21,7 @@ class ImageMatchingService
 public:
     void setController(controller::MainController* controller);
 
-    MatchingPointsPairs matchImages(const uint32_t neighborhoodSize,
-                                    const double neighborhoodConsistencyThreshold);
+    MatchingPointsPairs matchImages(const ImageMatchingParams& params);
 
     void setImageAPath(const std::string& imageAPath);
     const std::string getImageAPath() const;
@@ -37,6 +38,8 @@ private:
 
     std::unique_ptr<improc::ImageDescription> imageA;
     std::unique_ptr<improc::ImageDescription> imageB;
+
+    improc::matcher::MatcherFactory matcherFactory;
 };
 
 } // namespace model

@@ -8,7 +8,7 @@
 
 namespace model {
 namespace improc {
-namespace matcher {
+namespace algorithm {
 
 using helpers::Point;
 using MatchingPointsPairs = std::vector<std::pair<Point, Point>>;
@@ -34,6 +34,6 @@ private:
     uint32_t neighborhoodSize;
 };
 
-} // namespace matcher
+} // namespace algorithm
 } // namespace improc
 } // namespace model

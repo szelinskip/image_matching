@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+#include "RawImageMatchingParams.hpp"
 #include <helpers/Point.hpp>
 
 class MainWindow;
@@ -31,7 +32,7 @@ public:
     std::string getImageAPath() const;
     void setImageBPath(const std::string& imageBPath);
     std::string getImageBPath() const;
-    void runMatching(const std::string& neighborhoodSizeStr, const std::string& neighborhoodConsistencyThresholdStr);
+    void runMatching(const RawImageMatchingParams& rawParams);
 
 private:
     MainWindow& mainWindow;

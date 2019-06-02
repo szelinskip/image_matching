@@ -9,6 +9,7 @@
 #include <QFileDialog>
 
 #include <controller/MainController.hpp>
+#include <controller/RawImageMatchingParams.hpp>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -104,8 +105,18 @@ QString MainWindow::getFilenameViaDialog()
 
 void MainWindow::on_runMatchingBtn_clicked()
 {
-    std::string neighborhoodSizeStr = ui->neighborhoodSizeTextEdit->toPlainText().toStdString();
-    std::string neighborhoodConsistencyThresholdStr =
+    controller::RawImageMatchingParams params;
+    params.selectedMatcherMethod = ui->matchingMethodComboBox->currentText().toStdString();
+    params.neighborhoodSizeStr = ui->neighborhoodSizeTextEdit->toPlainText().toStdString();
+    params.neighborhoodConsistencyThresholdStr =
         ui->neighborhoodConsistencyThresholdTextEdit->toPlainText().toStdString();
-    controller->runMatching(neighborhoodSizeStr, neighborhoodConsistencyThresholdStr);
+    params.errorThresholdStr = ui->errorThresholdTextEdit->toPlainText().toStdString();
+    params.itersNumStr = ui->itersNumTextEdit->toPlainText().toStdString();
+    params.distanceHeuristicSelected = ui->distanceHeuristicCheckBox->isChecked();
+    params.distanceHeuristcLowerBoundStr = ui->distanceLowerBoundTextEdit->toPlainText().toStdString();
+    params.distanceHeuristcUpperBoundStr = ui->distanceUpperBoundTextEdit->toPlainText().toStdString();
+    params.itersNumEstimationHeuristicSelected = ui->itersNumEstimationHeuristicCheckBox->isChecked();
+    params.itersNumHeuristicProbGoodEnoughModelStr = ui->pProbabilityTextEdit->toPlainText().toStdString();
+    params.itersNumHeuristicNotNoiseProbStr = ui->wProbabilityTextEdit->toPlainText().toStdString();
+    controller->runMatching(params);
 }

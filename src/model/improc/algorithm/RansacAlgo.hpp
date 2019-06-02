@@ -9,7 +9,7 @@
 
 namespace model {
 namespace improc {
-namespace matcher {
+namespace algorithm {
 
 template<class Model, class Data = typename Model::Data, class Sample = typename Data::Sample>
 class RansacAlgo
@@ -27,7 +27,7 @@ public:
     std::pair<std::unique_ptr<Model>, Data> runRansac(const Data& data);
     std::vector<Sample> getSamplesRandomly(const Data& data);
 
-private:
+protected:
     std::random_device rd;
     std::mt19937 gen;
     std::uniform_int_distribution<uint32_t> uintDis;
@@ -109,6 +109,6 @@ std::vector<Sample> RansacAlgo<Model, Data, Sample>::getSamplesRandomly(const Da
     return samples;
 }
 
-} // namespace matcher
+} // namespace algorithm
 } // namespace improc
 } // namespace model

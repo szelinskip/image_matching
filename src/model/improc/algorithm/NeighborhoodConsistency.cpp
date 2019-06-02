@@ -7,7 +7,7 @@
 
 namespace model {
 namespace improc {
-namespace matcher {
+namespace algorithm {
 
 NeighborhoodConsistency::NeighborhoodConsistency(const double consistencyThreshold, const uint32_t neighborhoodSize)
     : consistencyThreshold(consistencyThreshold)
@@ -75,6 +75,6 @@ std::vector<uint32_t> NeighborhoodConsistency::getPointNeighborhoodIndices(const
     return neighbors;
 }
 
-} // namespace matcher
+} // namespace algorithm
 } // namespace improc
 } // namespace model
