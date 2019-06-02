@@ -29,7 +29,7 @@ std::string HarrisSiftExtractor::extractImageFeatures(const std::string& imagePa
         throw std::runtime_error("File path error: " + currPath);
     std::string dirPath = currPath.substr(0, slashPos + 1);
     std::string pathAfterMove = dirPath + "processing/" + currPath.substr(slashPos + 1);
-    std::string mvCmd = "mv " + dirPath + "*.haraff* " + dirPath + "processing/";
+    std::string mvCmd = "mv " + dirPath + "*.haraff* " + dirPath + "processing/ > /dev/null 2>&1";
     cmdStatus = system(mvCmd.c_str());
     if(cmdStatus != 0)
         throw std::runtime_error("File move error: " + cmd);
@@ -38,7 +38,7 @@ std::string HarrisSiftExtractor::extractImageFeatures(const std::string& imagePa
 
 std::string HarrisSiftExtractor::buildCommand(const std::string& imagePath) const
 {
-    return extractorPath + " -haraff -sift -i " + imagePath + " -DE";
+    return extractorPath + " -haraff -sift -i " + imagePath + " -DE > /dev/null 2>&1";
     // return extractorPath + " -haraff -sift -i " + imagePath + " -DE > /dev/null";
 }
 

@@ -8,6 +8,7 @@
 #include <QBitmap>
 #include <QPainter>
 
+#include <functional>
 #include <memory>
 #include <vector>
 
@@ -36,17 +37,14 @@ public:
     void paintImagesWithMatchingPoints(const MatchingPointsPairs& matchingPoints);
 
 private slots:
-    void on_imageASelectionBtn_clicked();
-    void on_imageBSelectionBtn_clicked();
-
     void on_runMatchingBtn_clicked();
+    void on_imagesSelectionBtn_clicked();
 
 private:
     void initialize();
     void loadImage();
-    QString getFilenameViaDialog();
-    void drawImageA(const QString& imageAPath);
-    void drawImageB(const QString& imageBPath);
+    QString getFilenameViaDialog(const QString& info);
+    void drawImages(const std::function<void(QPainter&, const int32_t)>& additionalPainting);
     void drawMatchingPointsLines(QPainter& painter,
                                  const MatchingPointsPairs& matchingPoints,
                                  const int32_t xOffset);

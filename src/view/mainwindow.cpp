@@ -29,7 +29,7 @@ void MainWindow::setController(controller::MainController* controller)
     this->controller = controller;
 }
 
-void MainWindow::paintImagesWithMatchingPoints(const MatchingPointsPairs& matchingPoints)
+void MainWindow::drawImages(const std::function<void(QPainter&, const int32_t)>& additionalPainting)
 {
     QImage imageA(QString::fromStdString(controller->getImageAPath()));
     QImage imageB(QString::fromStdString(controller->getImageBPath()));
@@ -40,7 +40,7 @@ void MainWindow::paintImagesWithMatchingPoints(const MatchingPointsPairs& matchi
     painter.drawImage(0, 0, imageA);
     painter.drawImage(imageA.width(), 0, imageB);
     painter.setPen(QPen(Qt::green, 1, Qt::SolidLine, Qt::FlatCap));
-    drawMatchingPointsLines(painter, matchingPoints, imageA.width());
+    additionalPainting(painter, imageA.width());
     painter.end();
     QPixmap pixmap = QPixmap::fromImage(combinedImage);
 
@@ -55,17 +55,17 @@ void MainWindow::paintImagesWithMatchingPoints(const MatchingPointsPairs& matchi
     ui->imageScrollArea->resize(ui->imageScrollArea->width(), combinedImage.height() + 20);
 }
 
+void MainWindow::paintImagesWithMatchingPoints(const MatchingPointsPairs& matchingPoints)
+{
+    drawImages([&](QPainter& painter, const int32_t offset)
+               {
+                   drawMatchingPointsLines(painter, matchingPoints, offset);
+               });
+}
+
 void MainWindow::initialize()
 {
     // ???
-}
-
-void MainWindow::drawImageA(const QString& /*imageAPath*/)
-{
-}
-
-void MainWindow::drawImageB(const QString& /*imageBPath*/)
-{
 }
 
 void MainWindow::drawMatchingPointsLines(QPainter& painter,
@@ -84,23 +84,18 @@ void MainWindow::drawMatchingPointsLines(QPainter& painter,
     }
 }
 
-void MainWindow::on_imageASelectionBtn_clicked()
+void MainWindow::on_imagesSelectionBtn_clicked()
 {
-    QString imageAPath = getFilenameViaDialog();
+    QString imageAPath = getFilenameViaDialog("Image A");
     controller->setImageAPath(imageAPath.toStdString());
-    drawImageA(imageAPath);
-}
-
-void MainWindow::on_imageBSelectionBtn_clicked()
-{
-    QString imageBPath = getFilenameViaDialog();
+    QString imageBPath = getFilenameViaDialog("Image B");
     controller->setImageBPath(imageBPath.toStdString());
-    drawImageB(imageBPath);
+    drawImages([](auto&, auto){});
 }
 
-QString MainWindow::getFilenameViaDialog()
+QString MainWindow::getFilenameViaDialog(const QString& info)
 {
-    return QFileDialog::getOpenFileName(this, "Select PNG image", "../images/");
+    return QFileDialog::getOpenFileName(this, "Select " + info + " - PNG image", "../images/");
 }
 
 void MainWindow::on_runMatchingBtn_clicked()
