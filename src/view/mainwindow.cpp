@@ -7,6 +7,7 @@
 #include <QBitmap>
 #include <QPainter>
 #include <QFileDialog>
+#include <QRandomGenerator>
 
 #include <controller/MainController.hpp>
 #include <controller/RawImageMatchingParams.hpp>
@@ -39,7 +40,6 @@ void MainWindow::drawImages(const std::function<void(QPainter&, const int32_t)>&
     painter.begin(&combinedImage);
     painter.drawImage(0, 0, imageA);
     painter.drawImage(imageA.width(), 0, imageB);
-    painter.setPen(QPen(Qt::green, 1, Qt::SolidLine, Qt::FlatCap));
     additionalPainting(painter, imageA.width());
     painter.end();
     QPixmap pixmap = QPixmap::fromImage(combinedImage);
@@ -91,6 +91,8 @@ void MainWindow::drawMatchingPointsLines(QPainter& painter,
         int32_t bX = static_cast<int32_t>(pointsPair.second.getX()) + xOffset;
         int32_t bY = static_cast<int32_t>(pointsPair.second.getY());
 
+        QColor randomColor = QColor::fromRgb(QRandomGenerator::global()->generate());
+        painter.setPen(QPen(randomColor, 1.5, Qt::SolidLine, Qt::FlatCap));
         painter.drawLine(aX, aY, bX, bY);
     }
 }

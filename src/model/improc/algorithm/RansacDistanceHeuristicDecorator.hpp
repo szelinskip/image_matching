@@ -85,10 +85,14 @@ std::vector<Sample> RansacDistanceHeuristicDecorator<Model, Data, Sample>::getHe
         if(i > 0)
             samplesWithAbsoluteIndex = filterSamples(samplesWithAbsoluteIndex, samples[i - 1]);
 
-        if(samplesWithAbsoluteIndex.size() < usedIndices.size() + 1)
+        uint32_t alreadyInUse = 0u;
+        for(const auto& filteredSample : samplesWithAbsoluteIndex)
         {
-            return {};
+            if(usedIndices.find(filteredSample.first) != usedIndices.end())
+                alreadyInUse++;
         }
+        if(alreadyInUse == samplesWithAbsoluteIndex.size())
+            return {};
 
         std::uniform_int_distribution<uint32_t>::param_type distParam(0u, samplesWithAbsoluteIndex.size() - 1);
         this->uintDis.param(distParam);
