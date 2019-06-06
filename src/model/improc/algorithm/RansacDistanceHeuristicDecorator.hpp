@@ -30,7 +30,7 @@ protected:
     std::vector<Sample> getHeuristicBasedSamples(const Data& data);
     std::vector<std::pair<uint32_t, Sample>> filterSamples(
         const std::vector<std::pair<uint32_t, Sample>>& samplesToFilter,
-        const Sample& sampleToCompareDistance);
+        const std::vector<Sample>& samplesToCompareDistance);
 
     RansacAlgoPtr baseAlgo;
     double lowerDistanceBound;
@@ -83,7 +83,7 @@ std::vector<Sample> RansacDistanceHeuristicDecorator<Model, Data, Sample>::getHe
     while(usedIndices.size() < this->samplesNum)
     {
         if(i > 0)
-            samplesWithAbsoluteIndex = filterSamples(samplesWithAbsoluteIndex, samples[i - 1]);
+            samplesWithAbsoluteIndex = filterSamples(samplesWithAbsoluteIndex, samples);
 
         uint32_t alreadyInUse = 0u;
         for(const auto& filteredSample : samplesWithAbsoluteIndex)
@@ -111,28 +111,36 @@ std::vector<Sample> RansacDistanceHeuristicDecorator<Model, Data, Sample>::getHe
 template<class Model, class Data, class Sample>
 std::vector<std::pair<uint32_t, Sample> > RansacDistanceHeuristicDecorator<Model, Data, Sample>
     ::filterSamples(const std::vector<std::pair<uint32_t, Sample>>& samplesToFilter,
-                    const Sample& sampleToCompareDistance)
+                    const std::vector<Sample>& samplesToCompareDistance)
 {
     std::vector<std::pair<uint32_t, Sample>> filtered;
     std::copy_if(samplesToFilter.cbegin(), samplesToFilter.cend(), std::back_inserter(filtered),
                  [&](const auto& sampleIndexPair)
                  {
-                     double distanceBetweenFirstPointsInPair =
-                         utils::math::euclideanDistance(sampleToCompareDistance.first,
-                                                        sampleIndexPair.second.first);
+                     for(const auto& sampleToCompareDistance : samplesToCompareDistance)
+                     {
+                         double distanceBetweenFirstPointsInPair =
+                             utils::math::euclideanDistance(sampleToCompareDistance.first,
+                                                            sampleIndexPair.second.first);
 
-                     bool firstPointInPairOk = distanceBetweenFirstPointsInPair > lowerDistanceBound
-                                               && distanceBetweenFirstPointsInPair < upperDistanceBound;
+                         bool firstPointInPairOk = distanceBetweenFirstPointsInPair > lowerDistanceBound
+                                                   && distanceBetweenFirstPointsInPair < upperDistanceBound;
 
-                     if(!firstPointInPairOk)
-                         return false;
+                         if(!firstPointInPairOk)
+                             return false;
 
-                     double distanceBetweenSecondPointsInPair =
-                         utils::math::euclideanDistance(sampleToCompareDistance.second,
-                                                        sampleIndexPair.second.second);
+                         double distanceBetweenSecondPointsInPair =
+                             utils::math::euclideanDistance(sampleToCompareDistance.second,
+                                                            sampleIndexPair.second.second);
 
-                     return distanceBetweenSecondPointsInPair > lowerDistanceBound
-                            && distanceBetweenSecondPointsInPair < upperDistanceBound;
+                         bool secondPointInPairOk = distanceBetweenSecondPointsInPair > lowerDistanceBound
+                                                    && distanceBetweenSecondPointsInPair < upperDistanceBound;
+
+                         if(!secondPointInPairOk)
+                             return false;
+                     }
+
+                     return true;
                  });
 
     return filtered;
